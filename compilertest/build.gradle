@@ -1,0 +1,7 @@
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    testCompile project(':annotation')
+    testApt project(':compiler')
+}

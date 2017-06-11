@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+	dependencies {
+        classpath 'net.ltgt.gradle:gradle-apt-plugin:0.10'
+	}
+}
+
+allprojects {
+    apply plugin: 'idea'
+
+	version = "0.0.1"
+
+    repositories {
+        jcenter()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'net.ltgt.apt'
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
+    }
+
+    dependencies {
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+
+        testCompile 'junit:junit:4.12'
+        testCompile 'org.assertj:assertj-core:3.8.0'
+    }
+}

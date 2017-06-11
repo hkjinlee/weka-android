@@ -1,0 +1,7 @@
+dependencies {
+    compile('nz.ac.waikato.cms.weka:weka-stable:3.8.1') {
+        transitive = false
+    }
+}
+
+
